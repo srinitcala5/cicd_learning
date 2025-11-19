@@ -19,7 +19,7 @@ jobs:
       id: deploy-to-azure
       uses: azure/static-web-apps-deploy@v1 
       with:
-        # 🔑 CRITICAL FIX: Using your exact secret name
+        
         azure_static_web_apps_api_token: ${{ secrets.SWA_TOKEN }} 
         
         repo_token: ${{ secrets.GITHUB_TOKEN }} 
