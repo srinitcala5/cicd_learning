@@ -1,0 +1,19 @@
+name: First CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # The free machine (1x multiplier)
+
+    steps:
+    # Checkout step pulls the code from your repo onto the runner machine
+    - uses: actions/checkout@v4
+    
+    # This is a basic shell command, proving the pipeline works
+    - name: Run a simple script
+      run: echo "✅ Pipeline successfully ran on the Ubuntu runner!"
