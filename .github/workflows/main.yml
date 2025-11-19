@@ -1,4 +1,4 @@
-name: First CI/CD Pipeline
+name: Deploy Static Web App
 
 on:
   push:
@@ -7,13 +7,22 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # The free machine (1x multiplier)
-
-    steps:
-    # Checkout step pulls the code from your repo onto the runner machine
-    - uses: actions/checkout@v4
+  build_and_deploy:
+    runs-on: ubuntu-latest
     
-    # This is a basic shell command, proving the pipeline works
-    - name: Run a simple script
-      run: echo "✅ Pipeline successfully ran on the Ubuntu runner!"
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+
+    - name: Build And Deploy to Azure
+      id: deploy-to-azure
+      uses: azure/static-web-apps-deploy@v1 
+      with:
+        # 🔑 CRITICAL FIX: Using your exact secret name
+        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WITTY_FLOWER_0BB7C5000 }} 
+        
+        repo_token: ${{ secrets.GITHUB_TOKEN }} 
+        action: "upload"
+        app_location: "/" 
+        output_location: "."
